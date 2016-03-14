@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=almasaeed2010&url=http://almsaeedstudio.com&title=AdminLTE&language=&tags=github&category=software) [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif "AdminLTE Presentation")](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=629XCUSXBHCBC "Donate")
 ------------------------
 
@@ -100,3 +101,6 @@ Image Credits:
 [ajaxload](http://www.ajaxload.info/ "")
 
 [pickaface](http://pickaface.net/ "")
+=======
+# coop
+>>>>>>> 179956c3b3cf74d50e88e9a39926c34275dfaa64
