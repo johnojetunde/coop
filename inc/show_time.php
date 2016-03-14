@@ -749,7 +749,7 @@ function currentMonthLedgerData($username){
        
    }else{
       $currentMonth =  date('m', strtotime('last month'));
-      $currentYear = date('Y', strotime('last month'));
+      $currentYear =   date('Y', strtotime('last month'));
       
    }
    
