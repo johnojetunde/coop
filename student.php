@@ -113,7 +113,7 @@ found!');</script>";
     <body class="skin-blue"   onload="processajax ('notification', 'catacata.php?note')">
         <!-- header logo: style can be found in header.less -->
         <header class="header">
-            <a href="user.php" class="logo">
+            <a href="dashboard.php" class="logo">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 cop User
             </a>

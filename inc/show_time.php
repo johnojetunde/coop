@@ -210,7 +210,7 @@ function dateData(){
        
    }else{
       $currentMonth =  date('m', strtotime('last month'));
-      $currentYear = date('Y', strotime('last month'));
+      $currentYear = date('Y', strtotime('last month'));
       
    }
    $dateData = "01-".$currentMonth."-".$currentYear;
@@ -227,7 +227,7 @@ function deductionsDisplay(){
        
    }else{
       $currentMonth =  date('m', strtotime('last month'));
-      $currentYear = date('Y', strotime('last month'));
+      $currentYear = date('Y', strtotime('last month'));
       
    }
    
