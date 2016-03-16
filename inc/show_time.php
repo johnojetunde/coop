@@ -11,7 +11,8 @@ $user = "root";
 $pass = "";
 $host = "localhost";
 $dbase = "damisa_coperative";
-global $result;
+global $result,$base_url;
+$base_url = $_SERVER['DOCUMENT_ROOT'];
 $admin_phone_numbers = "2348169013692";
 $mysqli = new mysqli($host,$user,$pass,$dbase);
 function close_db()
@@ -283,7 +284,7 @@ echo '<div class="box box-primary" style="width:80%;margin: 0 auto;">
                                            select_drop_down_user();
                                        echo ' </div>
 									   <div class="form-group">
-                                            <label for="Drop Down">Select Interest Rate</label>
+                                            <label for="Drop Down">Select Interest Rate </label>
                                            <div  id="amount_loan">
 										   </div>
                                         </div>
@@ -326,7 +327,7 @@ function getLoanDetailsOfId($id){
 	return $rows;
 		}
 function checkIfUserStillHasALoan($userUsername){
-	$sql = "SELECT * FROM `loan_apply` WHERE `username`='{$userUsername}' AND `balance_debt`>0";
+	$sql = "SELECT * FROM `loan_apply` WHERE `username`='{$userUsername}' AND `balance_debt`>0 AND `status`='approve'";
 	$result = query($sql);
 	return($result->num_rows > 0 ) ? true : false;
 	}
@@ -973,7 +974,7 @@ echo '</tbody>
 											 <th>Payment Title</th>
                                                 <th>Admin Payer</th>
 												
-												<th>Date</th>									 
+												<th>Date of Payment</th>									 
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -996,7 +997,7 @@ echo '<div class="box-header" style="width:90% !important;margin:0 auto !importa
 											 
                                                 <th>Category</th>
 												<th>Amount ( &#8358 ) </th>
-												<th>Interest Rate</th>
+												<th>Interest Rate (%)</th>
 												<th>Interest Amount ( &#8358 )</th>
 												<th>Final Amount ( &#8358 )</th>
 												<th>Date</th>
@@ -1102,13 +1103,13 @@ echo '</tbody>
 											<th>Username</th>
 											 
                                                 <th>Category</th>
-												<th>Amount</th>
-												<th>Interest Rate</th>
-												<th>Interest Amount</th>
-												<th>Final Amount</th>
+												<th>Amount ( &#8358 )</th>
+												<th>Interest Rate (%)</th>
+												<th>Interest Amount ( &#8358 )</th>
+												<th>Final Amount ( &#8358 )</th>
 												<th>Date</th>
 												<th>Action</th>
-												<th>Debt Remaining </th>
+												<th>Debt Remaining ( &#8358 ) </th>
                                             	<th>Status</th>											 
                                             </tr>
                                         </tfoot>
@@ -1180,13 +1181,13 @@ echo '<div class="box-header" style="width:95% !important;margin:0 auto !importa
 											 
                                                 <th>Category</th>
 												<th>Amount ( &#8358 )</th>
-												<th>Interest Rate</th>
+												<th>Interest Rate (%)</th>
 												<th>Interest Amount ( &#8358 )</th>
 												<th>Final Amount ( &#8358 )</th>
 												<th>Date</th>
-												<th>Status</th>
+												<th>Approval Status</th>
 												<th>Debt Remaining ( &#8358 )</th>
-																							<th>Status</th>
+												<th>Payment Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>';
@@ -1279,13 +1280,13 @@ echo '</tbody>
 											 
                                                 <th>Category</th>
 												<th>Amount ( &#8358 )</th>
-												<th>Interest Rate</th>
+												<th>Interest Rate (%)</th>
 												<th>Interest Amount ( &#8358 )</th>
 												<th>Final Amount ( &#8358 )</th>
 												<th>Date</th>
-												<th>Status</th>
+												<th>Approval Status</th>
 												<th>Debt Remaining ( &#8358 )</th>
-																							<th>Status</th>								 
+												<th>Payment Status</th>								 
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -1304,8 +1305,8 @@ echo '<div class="box-header" style="width:95% !important;margin:0 auto !importa
                                         <thead>
                                             <tr>
 											<th>Category Name</th>
-											<th>Amount</th>
-											<th>Interest Rate</th>
+											<th>Amount ( &#8358 )</th>
+											<th>Interest Rate (%)</th>
 											 
                                                 <th>Edit</th>
 												<th>Delete</th>
@@ -1336,8 +1337,8 @@ echo '</tbody>
                                             <tr>
 											
 											<th>Category Name</th>
-											<th>Amount</th>
-											<th>Interest Rate</th>
+											<th>Amount ( &#8358 )</th>
+											<th>Interest Rate (%)</th>
 											 
                                                 <th>Edit</th>
 												<th>Delete</th>
@@ -3491,7 +3492,7 @@ $subject = htmlspecialchars_decode($row['subject'],ENT_QUOTES);
 $subject = substr($subject,0,30);
 $timestamp = $row['timestamp'];
 $date = date("h:i A, M j, Y",$timestamp);
-$month = date("n M. Y",$timestamp);
+$month = date("d M Y",$timestamp);
 $attachment = $row['attachment'];
 $inboxid = $row['inboxid'];
 $encoded = encoder($inboxid);
@@ -3518,7 +3519,16 @@ echo '<li><!-- start message -->
 }
 
 }
+function base_url(){
+	
+    $base_url  = $_SERVER['SERVER_NAME'];
+	//$folder = substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], "/")+1);
+	//$base_url = $_SERVER['HTTP_HOST'];
+	echo 'This is the servername '.$base_url;
+	return "http://".$base_url."/cop";
+}
 function individual_sent($id,$back_page){
+	
 $sql = "SELECT * FROM `sent` WHERE `sentid`='{$id}' LIMIT 1";
 $result = query($sql);
 $row = $result->fetch_array();
@@ -3527,7 +3537,7 @@ $subject = htmlspecialchars_decode($row['subject'],ENT_QUOTES);
 $message = htmlspecialchars_decode($row['message'],ENT_QUOTES);
 $timestamp = $row['timestamp'];
 $date = date("h:i A, M j, Y",$timestamp);
-$month = date("n M. Y",$timestamp);
+$month = date("d M Y",$timestamp);
 $attachment = $row['attachment'];
 $time = date("h:i A",$timestamp);
 echo '<div class="col-md-9 col-sm-8">
@@ -3574,7 +3584,7 @@ echo '<div class="col-md-9 col-sm-8">
 
 if($attachment!=""){           
 		  echo ' <div class=\'timeline-footer\'>
-                <a href="../xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
+                <a href="'.base_url().'/xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
             </div>';
 			}
        echo ' </div>
@@ -3599,7 +3609,7 @@ $subject = htmlspecialchars_decode($row['subject'],ENT_QUOTES);
 $message = htmlspecialchars_decode($row['message'],ENT_QUOTES);
 $timestamp = $row['timestamp'];
 $date = date("h:i A, M j, Y",$timestamp);
-$month = date("n M. Y",$timestamp);
+$month = date("d M Y",$timestamp);
 $attachment = $row['attachment'];
 $time = date("h:i A",$timestamp);
 echo '<div class="col-md-9 col-sm-8">
@@ -3646,7 +3656,7 @@ echo '<div class="col-md-9 col-sm-8">
 
 if($attachment!=""){           
 		  echo ' <div class=\'timeline-footer\'>
-                <a href="../xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
+                <a href="'.base_url().'/xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
             </div>';
 			}
        echo ' </div>
@@ -3731,7 +3741,7 @@ $subject = htmlspecialchars_decode($row['junker_subject'],ENT_QUOTES);
 $message = htmlspecialchars_decode($row['junker_message'],ENT_QUOTES);
 $timestamp = $row['timestamp'];
 $date = date("h:i A, M j, Y",$timestamp);
-$month = date("n M. Y",$timestamp);
+$month = date("d M Y",$timestamp);
 $attachment = $row['attachment'];
 $time = date("h:i A",$timestamp);
 echo '<div class="col-md-9 col-sm-8">
@@ -3778,7 +3788,7 @@ echo '<div class="col-md-9 col-sm-8">
 
 if($attachment!=""){           
 		  echo ' <div class=\'timeline-footer\'>
-                <a href="../xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
+                <a href="'.base_url().'/xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
             </div>';
 			}
        echo ' </div>
@@ -3805,7 +3815,7 @@ $subject = htmlspecialchars_decode($row['subject'],ENT_QUOTES);
 $message = htmlspecialchars_decode($row['message'],ENT_QUOTES);
 $timestamp = $row['timestamp'];
 $date = date("h:i A, M j, Y",$timestamp);
-$month = date("n M. Y",$timestamp);
+$month = date("d M Y",$timestamp);
 $attachment = $row['attachment'];
 $time = date("h:i A",$timestamp);
 echo '<div class="col-md-9 col-sm-8">
@@ -3852,7 +3862,7 @@ echo '<div class="col-md-9 col-sm-8">
 
 if($attachment!=""){           
 		  echo ' <div class=\'timeline-footer\'>
-                <a href="../xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
+                <a href="'.base_url().'/xva29f2et07334eo3tyhd115ft507g90phjfg/'.$attachment.'" class="btn btn-primary btn-xs"><i class="fa fa-download"></i> Download Attachment</a>
             </div>';
 			}
        echo ' </div>
@@ -4666,7 +4676,7 @@ echo '<div class="box box-primary" style="width:80%;margin: 0 auto;">
                                         </div>
 										<div class="form-group">
                                             <label for="address">Address</label>
-                                            <textarea cols="3" rows="5" class="form-control" name="address" required placeholder=" Address ">'.stripslashes($all_details['address']).'</textarea>
+                                            <textarea cols="3" rows="5" class="form-control" name="address" placeholder=" Address ">'.stripslashes($all_details['address']).'</textarea>
                                          
                                         </div>
 										

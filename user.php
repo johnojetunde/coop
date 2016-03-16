@@ -157,7 +157,10 @@ found!');</script>";
                                
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    
+                                    <div class="pull-left">
+                      <a href="user.php?user_details" class="btn btn-default btn-flat">Edit Profile</a>
+                    </div>
+                    
                                     <div class="pull-right">
                                         <a href="index.php?out" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
@@ -181,9 +184,9 @@ found!');</script>";
                             <img src="<?php echo $_SESSION['passport']; ?>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, <?php echo ucword($username); ?></p>
+                           <a href="user.php?user_details"> <p>Hello, <?php echo ucword($username); ?></p>
 
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                            <i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
                     <!-- search form -->
@@ -236,7 +239,7 @@ echo '<marquee scrolldelay="50" id="scroll_news"><div onMouseOver="document.getE
                     <!-- Main row -->
                     <div class="row">
                         <!-- Left col -->
-						<div id="response"></div>
+						<div id="response" style="width:99% !important; margin: 0 auto !important;"></div>
                        <?php 
 					   if(isset($_GET['user_details'])){
 					  update_user_content($all_details);
@@ -283,7 +286,7 @@ $period = $_POST['period'];
 $year = date('Y');
 $link = "printer.php?period=$period";
 echo '<p align="right"><a href="'.$link.'" target="_blank">Print</a></p>';
-
+$periodArray = explode("/",trim($period));
 if($period=="annual"){
 get_annual_period_ledger($year,1,$username);
 }
@@ -296,9 +299,15 @@ get_annual_period_ledger($year,3,$username);
 else if($period=="so_far"){
 get_annual_period_ledger($year,4,$username);
 }
+
+else if(count($periodArray)!=2){
+    
+    }
 else{
-get_annual_period_ledger($period,5,$username);
+get_annual_period_ledger($period,5);
 }
+
+
 }
 				else if(isset($_POST['save_sett'])){
 				/*$savings =  get_all_from_savings_cat();

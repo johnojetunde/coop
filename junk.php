@@ -161,7 +161,9 @@ found!');</script>";
                                
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    
+                                    <div class="pull-left">
+                      <a href="user.php?user_details" class="btn btn-default btn-flat">Edit Profile</a>
+                    </div>
                                     <div class="pull-right">
                                         <a href="index.php?out" class="btn btn-default btn-flat">Sign out</a>
                                     </div>
@@ -185,9 +187,9 @@ found!');</script>";
                             <img src="<?php echo $_SESSION['passport']; ?>" class="img-circle" alt="User Image" />
                         </div>
                         <div class="pull-left info">
-                            <p>Hello, <?php echo ucword($username); ?></p>
+                             <a href="user.php?user_details"><p>Hello, <?php echo ucword($username); ?></p>
 
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                           <i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
                     <!-- search form -->
