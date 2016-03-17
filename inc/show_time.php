@@ -1045,7 +1045,7 @@ $expiring = "Loan payment will expire on ".$date_expire;
 if($balance_debt<=0){
 $pay_in = "Loan Cleared";
 }else{
-$pay_in = "<a href='?make_payment=".$encoder."' class='btn btn-small btn-primary' title='Make Payment'><i class='fa fa-money'></i></a>";
+$pay_in = "<a href='?make_payment=".$encoder."' class='btn btn-xs btn-primary' title='Make Payment'><i class='fa fa-money'></i></a>";
 
 }
 $title = "";
@@ -1066,7 +1066,7 @@ $class = "warning";
 $words = "Pending";
 $pay_in = "Not Approved";
 $expiring = "";
-$word2 = "<a href='?loan_decline=".$encoder."' class='btn btn-small btn-danger' title='Decline' onclick='return sure_decline();'><i class='fa fa-ban'></i></a>";
+$word2 = "<a href='?loan_decline=".$encoder."' class='btn btn-xs btn-danger' title='Decline' onclick='return sure_decline();'><i class='fa fa-ban'></i></a>";
 }
 else if($status=="decline"){
 $class = "danger";
@@ -1074,7 +1074,7 @@ $words = "Declined";
 $pay_in = "Not Approved";
 $expiring = "";
 }
-$word = "<a href='?loan_approve=".$encoder."' class='btn btn-small btn-success' title='Approve'><i class='fa fa-check'></i></a>";
+$word = "<a href='?loan_approve=".$encoder."' class='btn btn-xs btn-success' title='Approve'><i class='fa fa-check'></i></a>";
 
 }
 $join = $word." ".$word2;
