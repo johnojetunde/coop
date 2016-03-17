@@ -325,7 +325,7 @@ $filepath = "";
 $flag = 0;
 $checker = check_with_timestamp($timestamp);
 if(!$checker){
-$result = make_payment_db($id,$amount_now,$user_username,$admin_name,$timestamp,$balance_debt,$payment_amount);
+$result = make_payment_db($id,$amount_now,$user_username,$admin_name,$timestamp,$balance_debt,$payment_amount,$subject);
 if($result){
 send_message_to($username,$fullname,$rec,$subject,$message,$filepath,$flag,$timestamp);
 send_sms($phone_number,$message);

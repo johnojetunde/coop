@@ -159,11 +159,12 @@ echo '<div class="alert alert-danger alert-dismissable" style="width:60%; margin
 else if(isset($_GET['select_drop_down'])){
 
 $id = $_GET['select_drop_down'];
- echo '<select name="amount_loan"  class="form-control">';
+ echo '<select name="amount_loan"  class="form-control" required>';
 										   
 echo '<option value="">-- choose --</option>';
 bring_other_part($id);
 echo '</select>';
+echo '<i><em>Amount ------ Interest rate</em></i>';
 }
 else if(isset($_POST['loan_cat'])){
 $cat = addslashes($_POST['cat_name']);

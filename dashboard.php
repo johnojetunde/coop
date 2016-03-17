@@ -231,19 +231,7 @@ echo '<marquee scrolldelay="50" id="scroll_news"><div onMouseOver="document.getE
         <section class="content">
           <!-- Small boxes (Stat box) -->
           <div class="row">
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-aqua">
-                <div class="inner">
-                  <h3><?php echo selectLoanStatuses($username,"pending"); ?></h3>
-                  <p>Pending Loan Application</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-ios7-infinite"></i>
-                </div>
-                <a href="user.php?loan_lookup" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
+            
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-green">
@@ -257,6 +245,35 @@ echo '<marquee scrolldelay="50" id="scroll_news"><div onMouseOver="document.getE
                 <a href="user.php?view_generated_ledger" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3><?php echo getTotalSavingsCategory($username);?></h3>
+                  <p>Total Savings Category</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios7-filing-outline"></i>
+                </div>
+                <a href="user.php?user_details" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3><?php echo selectLoanStatuses($username,"pending"); ?></h3>
+                  <p>Pending Loan Application</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios7-infinite"></i>
+                </div>
+                <a href="user.php?loan_lookup" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-yellow">
@@ -270,19 +287,7 @@ echo '<marquee scrolldelay="50" id="scroll_news"><div onMouseOver="document.getE
                 <a href="user.php?loan_lookup" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
-                <div class="inner">
-                  <h3><?php echo count(selectAllUsername());?></h3>
-                  <p>Total System Users</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="user.php?user_details" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
-              </div>
-            </div><!-- ./col -->
+            
           </div><!-- /.row -->
           <!-- Main row -->
           <div class="row">

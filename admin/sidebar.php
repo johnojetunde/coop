@@ -4,20 +4,7 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-envelope"></i>
-                                <span>Mailbox</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="inbox.php"><i class="fa fa-angle-double-right"></i> Inbox</a></li>
-                                <li><a href="draft.php"><i class="fa fa-angle-double-right"></i> Drafts</a></li>
-                                <li><a href="sent.php"><i class="fa fa-angle-double-right"></i> Sent</a></li>
-                                <li><a href="junk.php"><i class="fa fa-angle-double-right"></i> Junk</a></li>
-                               
-                            </ul>
-                        </li>
+                       
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-users"></i>
@@ -31,9 +18,25 @@
                                 
 							</ul>
                         </li>
+
                         <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-book"></i>
+                                <i class="fa fa-briefcase"></i>
+                                <span>Savings</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="admin.php?all_sav_cat"><i class="fa fa-angle-double-right"></i> Add Saving Categories</a></li>
+                                <li><a href="admin.php?view_sav_cat"><i class="fa fa-angle-double-right"></i> View Savings Categories </a></li>
+                                
+                                
+                                       
+                            </ul>
+                        </li>
+                        
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-money"></i>
                                 <span>Loans</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </a>
@@ -49,20 +52,7 @@
 							           
 							</ul>
                         </li>
-						 <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                <span>Savings</span>
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="admin.php?all_sav_cat"><i class="fa fa-angle-double-right"></i> Add Saving Categories</a></li>
-								<li><a href="admin.php?view_sav_cat"><i class="fa fa-angle-double-right"></i> View Savings Categories </a></li>
-								
-								
-							           
-							</ul>
-                        </li>
+						 
 						<li class="treeview">
                             <a href="#">
                                 <i class="fa fa-book"></i>
@@ -77,7 +67,20 @@
 							           
 							</ul>
                         </li>
-						
+						 <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-envelope"></i>
+                                <span>Mailbox</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="inbox.php"><i class="fa fa-angle-double-right"></i> Inbox</a></li>
+                                <li><a href="draft.php"><i class="fa fa-angle-double-right"></i> Drafts</a></li>
+                                <li><a href="sent.php"><i class="fa fa-angle-double-right"></i> Sent</a></li>
+                                <li><a href="junk.php"><i class="fa fa-angle-double-right"></i> Junk</a></li>
+                               
+                            </ul>
+                        </li>
 						 <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-user"></i>

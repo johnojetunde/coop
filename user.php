@@ -51,6 +51,8 @@ else {
 
     setcookie("freichat_user", null, time()+600, "/"); // *do not change -> freichat code
 }
+// echo 'This is the sorting algorithm';
+//getTotalLoanCategory($username);
 
 ?>
 
@@ -287,6 +289,7 @@ $year = date('Y');
 $link = "printer.php?period=$period";
 echo '<p align="right"><a href="'.$link.'" target="_blank">Print</a></p>';
 $periodArray = explode("/",trim($period));
+//echo $username;
 if($period=="annual"){
 get_annual_period_ledger($year,1,$username);
 }
@@ -304,7 +307,7 @@ else if(count($periodArray)!=2){
     
     }
 else{
-get_annual_period_ledger($period,5);
+get_annual_period_ledger($period,5,$username);
 }
 
 

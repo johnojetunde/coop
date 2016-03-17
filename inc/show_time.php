@@ -186,7 +186,7 @@ function select_all_users(){
 $sql = "SELECT * FROM users ORDER BY username DESC";
 $result = query($sql);
 $mysql_rows = $result->num_rows;
-echo '<select name="username" required class="form-control">
+echo '<select name="username" required class="form-control required 
 <option value="">-- choose --</option>
 ';
 for($i=0;$i<$mysql_rows;$i++){
@@ -416,9 +416,10 @@ echo '
                                            select_drop_down_new();
                                        echo ' </div>
 									   <div class="form-group">
-                                            <label for="Drop Down">Select Interest rate</label>
+                                            <label for="Drop Down">Select Amount</label>
                                            <div  id="amount_loan">
 										   </div>
+
                                         </div>
 										
 										
@@ -616,7 +617,7 @@ $save_description = $row['save_description'];
 $save_start_date = $row['save_start_date'];
 $save_end_date = $row['save_end_date'];
 $created_by = $row['created_by'];
-$save_def_amount = $row['save_def_amount'];
+$save_def_amount = number_format($row['save_def_amount']);
 $linker = "<a href='?edit_link_savings=".$links."'>Edit</a>";
 $del = "<a href='?del_savings=".$links."' onclick='return sure_del();'>Delete</a>";
 echo '<tr>
@@ -875,7 +876,8 @@ $phone_number = $row['phone_number'];
 $balance_debt = $balance_debt - $amount_now;
 $timestamp = time();
 $subject = "Loan Payment";
-$message = "Admin ".$fullname ." has generated monthly ledger and &#8358 ".$amount_now." payment on your behalf for your ".$cat_name." loan via monthly payback";
+$message = "Admin ".$fullname ." has generated monthly ledger and &#8358 ".number_format($amount_now)." payment on your behalf for your ".$cat_name." loan via monthly payback";
+$smsMessage = "Admin ".$fullname ." has generated monthly ledger and N".number_format($amount_now)." payment on your behalf for your ".$cat_name." loan via monthly payback";
 $payment_amount  = $payment_amount + $amount_now;
 $filepath = "";
 $flag = 0;
@@ -883,7 +885,7 @@ $purpose = "Loan Payment";
 $result = make_payment_db($id,$amount_now,$user_username,$admin_name,$timestamp,$balance_debt,$payment_amount,$purpose);
 if($result){
 send_message_to($admin_name,$fullname,$rec,$subject,$message,$filepath,$flag,$timestamp);
-send_sms($phone_number,$message);
+send_sms($phone_number,$smsMessage);
 
 }else{
 
@@ -957,7 +959,7 @@ echo '<tr>
 											
 											<td>'.$id.'</td>
 											<td>'.$username.'</td>
-											<td align="right">'.$amount.'</td>
+											<td align="right">'.number_format($amount).'</td>
 											 <td>'.$purpose.'</td>
                                                 <td>'.$admin_payer.'</td>
 												
@@ -1019,15 +1021,15 @@ $category = $row['cat_name'];
 $surname = $row['surname'];
 $othername = $row['othername'];
 $fullname = $surname." ".$firstname." ".$othername;
-$amount  = $row['amount'];
+$amount  = number_format($row['amount']);
 $interest_rate = $row['interest_rate'];
-$interest_amount = $row['interest_amount'];
-$final_amount  = $row['final_amount'];
+$interest_amount = number_format($row['interest_amount']);
+$final_amount  = number_format($row['final_amount']);
 $timestamp = $row['timestamp'];
 $date  = date("m M,Y h:ia",$timestamp);
 $status = $row['status'];
-$balance_debt = $row['balance_debt'];
-$payment_amount = $row['payment_amount'];
+$balance_debt = number_format($row['balance_debt']);
+$payment_amount = number_format($row['payment_amount']);
 $date_expire = $row['date_expire'];
 $approver = $row['approver'];
 $now_date = date('Y-m-d');
@@ -1076,7 +1078,7 @@ $word = "<a href='?loan_approve=".$encoder."' class='btn btn-small btn-success' 
 
 }
 $join = $word." ".$word2;
-$title="Payment Made &#8358 ".$payment_amount.". ".$expiring;
+$title="Payment Made &#8358".$payment_amount.". ".$expiring;
 echo '<tr class="'.$class.'" title="'.$words.'">
 <td>'.$id.'</td>
 <td>'.$fullname.'</td>
@@ -1227,7 +1229,7 @@ $expiring = "Loan payment will expire on ".$date_expire;
 if($balance_debt<=0){
 $pay_in = "Loan Cleared";
 }else{
-$pay_in = "You still owe";
+$pay_in = "Servicing";
 
 }
 $title = "";
@@ -1324,7 +1326,7 @@ $del = "<a href='?del_rate=".$encoded."' onclick='return sure_del_cat_rate();'>D
 $edit = "<a href='?edit_rate=".$encoded."'>Edit</a>";
 echo '<tr>
 <td>'.$cat_name.'</td>
-<td align="right">'.$amount.'</td>
+<td align="right">'.number_format($amount).'</td>
 <td align="right">'.$interest_rate.'</td>
 <td>'.$edit.'</td>
 <td>'.$del.'</td>
@@ -1901,6 +1903,19 @@ $row = $result->fetch_array();
 $passport  = $row['passport'];
 return $passport;
 }
+
+function getTotalSavingsCategory($username){
+$savings = get_all_from_savings_cat();
+$count  = 0;
+$userDetails = get_details_user($username);
+foreach($savings as $save_name){
+if($userDetails[''.$save_name.''] > 0){
+$count++;
+}
+}
+return $count;
+}
+
 function select_drop_down(){
 $sql = "SELECT * FROM `loan_categ` ORDER BY `cat_name` DESC";
 $result = query($sql);
@@ -1927,7 +1942,7 @@ $rate_id = $row['rate_id'];
 $amount = $row['amount'];
 $interest_rate = $row['interest_rate'];
 $rate = $amount.":".$interest_rate;
-echo '<option value="'.$rate.'">  '.$amount.'----@'.$interest_rate.'%</option>';
+echo '<option value="'.$rate.'">  '.number_format($amount).'----@'.$interest_rate.'%</option>';
 }
 
 }
@@ -1978,7 +1993,7 @@ echo '</select>';
 function select_drop_down_new(){
 $sql = "SELECT * FROM `loan_categ` ORDER BY `cat_name` DESC";
 $result = query($sql);
-echo '<select name="loan_cat" required class="form-control" onchange="on_select_here(\'categ\',\'amount_loan\',\'../catacata.php\')" id="categ">
+echo '<select name="loan_cat" required class="form-control" required onchange="on_select_here(\'categ\',\'amount_loan\',\'../catacata.php\')" id="categ">
 <option value="">-- choose --</option>
 ';
 $mysql_num_rows = $result->num_rows;
@@ -4146,7 +4161,7 @@ echo '<input type="hidden" name="month" value="'.$month.'" required/>';
 echo '<input type="hidden" name="year" value="'.$year.'" required />';
 echo '<div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title" align="center">Balance Brought Forward Section</h3>                                    
+                                    <h3 class="box-title" align="center">Deficit Outstanding</h3>                                    
                                 </div><!-- /.box-header -->
 								<button type="submit" class="btn btn-success" name="forward_push" style="float:right;">Save</button><br/>
                                 <div class="box-body table-responsive">
@@ -4161,7 +4176,7 @@ echo '<div class="box">
 											}
 												echo '<th>SUM</th>';
 												if($month!=""){
-												echo'<th title="Balance Brought being pushed to next month to serve as balance brought forward">Balance Being Pushed to Coming Month</th>';
+												echo'<th title="Balance Brought being pushed to next month to serve as deficit outstanding forward">Balance Being Pushed to Coming Month</th>';
 											
 												}
 												echo '</tr>
@@ -4273,7 +4288,7 @@ echo '<div class="box">
 											}
 												echo '<th>SUM</th>';
 												if($month!=""){
-												echo'<th title="Balance Brought Forward From Previous Month">Balance Brought Forward</th>';
+												
 												echo'<th title="Amount Deducted">Amount Deducted</th>';
 												
 												}
@@ -4291,23 +4306,23 @@ echo '<tr>
 <td>'.$username.'</td>';
 $loan = get_values_for_ledger($username,$year2,$year,$save_name,$month);
 $data_period[$username]['loan'] = $loan;
-echo '<td align="right">'.$loan.'</td>';
+echo '<td align="right">'.number_format($loan).'</td>';
 foreach($savings as $save_name){
 $save_name = "".$save_name."";
 $saver = get_values_for_ledger($username,$year2,$year,$save_name,$month);
 $data_period[$username][$save_name] = $saver;
 
-echo '<td align="right">'.$saver.'</td>';
+echo '<td align="right">'.number_format($saver).'</td>';
 }
 $total_user = array_sum($data_period[$username]);
 $data_period[$username]['sum_total'] = $total_user;
-echo '<td align="right">'.$total_user.'</td>';
+echo '<td align="right">'.number_format($total_user).'</td>';
 if($month!=""){
 $bf = "0";
 $bf = get_balance_brought_forward($year,$month,$username);
 $final_total = $total_user  + $bf;
-echo '<td align="right">'.$bf.'</td>';
-echo '<td align="right">'.$final_total.'</td>';
+// echo '<td align="right">'.$bf.'</td>';
+echo '<td align="right">'.number_format($final_total).'</td>';
 }
 echo '</tr>';
 }
@@ -4323,7 +4338,7 @@ echo '</tbody>
 											}
 												echo '<th>SUM</th>';
 												if($month!=""){
-												echo'<th title="Balance Brought Forward From Previous Month">Balance Brought Forward</th>';
+												// echo'<th title="Balance Brought Forward From Previous Month">Balance Brought Forward</th>';
 												echo'<th title="Amount Deducted">Amount Deducted</th>';
 												
 												}

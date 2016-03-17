@@ -325,10 +325,17 @@ $minus = $minus + 1;
 $noexists = $noexists + 1;
 }
 }
+$message = $counter.' Inbox has been deleted';
+if($minus>=1){
+   $message .= ','.$minus.' Inbox was not deleted'; 
+}
+if($noexists>=1){
+    $message .=','.$noexists.' Inbox not found in the database. It might have been deleted before';
+}
 echo '<div class="alert alert-info alert-dismissable" style="width:80%; margin: 0 auto;">
                                         <i class="fa fa-info"></i>
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                        <b>Alert!</b> '.$counter.' Inbox has been deleted while '.$minus.' Inbox was not deleted. '.$noexists.' Inbox not found in the database. It might have been deleted before.
+                                        <b>Alert!</b>'.$message.'
                                     </div>';
 }
 else if(isset($_POST['move_junk'])){
